@@ -4,7 +4,7 @@ import apiUri from "../../apiUri";
 class New extends Component {
   constructor(props) {
     super(props);
-    this.state = {name: '', email: '', orden: 0, estado: 0, cliente: ''};
+    this.state = {name: '', email: '', orden: undefined, estado: undefined, cliente: ''};
 
     this.handleChange = this.handleChange.bind(this);
     this.handleChangeSelect = this.handleChangeSelect.bind(this);
@@ -21,9 +21,9 @@ class New extends Component {
   }
 
   handleSubmit(event) {
-    alert('Nombre: ' + this.state.name + '\nEmail: ' + this.state.email);
+    alert('Creaste un '+this.props.nombre + this.mensaje());
     const url = apiUri + this.props.ruta;
-    const datos = this.genData(this.props.nombre);
+    const datos = this.genData();
     this.setState({name: '', email: '', orden: 0, estado: 0, cliente: ''});
     fetch(url, {method: 'POST', headers: {'Content-Type': 'application/json'},
     body: JSON.stringify(datos)}).then(function(response) {
@@ -34,21 +34,40 @@ class New extends Component {
     event.preventDefault();
   }
 
-  genData(name){
-    if (name === "Vendedor"){
+  mensaje(){
+    if (this.props.nombre === "Vendedor"){
+      return '\nNombre: '+ this.state.name + '\nEmail: '+this.state.email;
+    }
+    else if (this.props.nombre === "Transportista"){
+      return '\nNombre: '+ this.state.name;
+    }
+    else if (this.props.nombre === "Pedido"){
+      let cliente = '';
+      for (var i = 0; i < this.props.datos.length; i++) {
+        if (this.props.datos[i]._id === this.state.cliente){
+          cliente = this.props.datos[i].nombre;
+          break;
+        }
+      }
+      return '\nCliente: '+ this.state.cliente + '\nOrden : ' + this.state.orden.toString()+ '\nEstado: ' + this.state.estado;
+    }
+    return '';
+  }
+  genData(){
+    if (this.props.nombre === "Vendedor"){
       return {nombre: this.state.name, email: this.state.email};
     }
-    else if (name === "Transportista"){
+    else if (this.props.nombre === "Transportista"){
       return {nombre: this.state.name};
     }
-    else if (name === "Pedido"){
+    else if (this.props.nombre === "Pedido"){
       return {cliente: this.state.cliente, orden: this.state.orden.toString(), estado: this.state.estado};
     }
     return {};
   }
 
-  genForm(name){
-    if (name === "Vendedor"){
+  genForm(){
+    if (this.props.nombre === "Vendedor"){
       return (<form onSubmit={this.handleSubmit}>
         <label>
           Nombre:
@@ -59,7 +78,7 @@ class New extends Component {
         </label>
         <input type="submit" value="Submit" />
       </form>);
-    }else if( name === "Transportista"){
+    }else if( this.props.nombre === "Transportista"){
       return (<form onSubmit={this.handleSubmit}>
         <label>
           Nombre:
@@ -67,7 +86,7 @@ class New extends Component {
         </label>
         <input type="submit" value="Submit" />
       </form>);
-    }else if (name === "Pedido") {
+    }else if (this.props.nombre === "Pedido") {
       return (<form onSubmit={this.handleSubmit}>
         <label>
           Cliente:
@@ -96,7 +115,7 @@ class New extends Component {
     return (
       <div>
       <h3>Agregar Nuevo {this.props.nombre}</h3>
-        {this.genForm(this.props.nombre)}
+        {this.genForm()}
       </div>
     );
   }

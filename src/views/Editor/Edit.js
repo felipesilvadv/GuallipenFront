@@ -21,10 +21,10 @@ class Edit extends Component {
     this.setState({value: event.target.value});
   }
   handleSubmitEditor(event) {
-    alert('Nombre: ' + this.state.name + '\nEmail: ' + this.state.email + ' '+this.state.value);
+    alert('Editaste el '+ this.props.nombre + '\nNuevo ' + this.props.nombre + ':' + this.mensaje());
     this.setState({name: '', email: '', display:false});
     const url = apiUri + this.props.ruta + '/' + this.state.value;
-    const datos = { nombre: this.state.name, email: this.state.email};
+    const datos = this.genData();
     fetch(url , {method: 'PUT', mode: 'cors', headers: {'Content-Type': 'application/json'},
     body: JSON.stringify(datos)}).then(function(response) {
         return response;
@@ -51,8 +51,36 @@ class Edit extends Component {
     }
     event.preventDefault();
   }
-  genData(name){
-    return;
+  mensaje(){
+    if (this.props.nombre === "Vendedor"){
+      return '\n\tNombre: '+ this.state.name + '\n\tEmail: '+this.state.email;
+    }
+    else if (this.props.nombre === "Transportista"){
+      return '\n\tNombre: '+ this.state.name;
+    }
+    else if (this.props.nombre === "Pedido"){
+      let orden = '';
+      for (var i = 0; i < this.props.datos.length; i++) {
+        if (this.props.datos[i]._id === this.state.value){
+          orden = this.props.datos[i].orden;
+          break;
+        }
+      }
+      return '\n\tOrden : ' + orden+ '\n\tEstado: ' + this.state.estado;
+    }
+    return '';
+  }
+  genData(){
+    if (this.props.nombre === "Vendedor"){
+      return {nombre: this.state.name, email: this.state.email};
+    }
+    else if (this.props.nombre === "Transportista"){
+      return {nombre: this.state.name};
+    }
+    else if (this.props.nombre === "Pedido"){
+      return {estado: this.state.estado};
+    }
+    return {};
   }
 
   genForm(name){
@@ -79,7 +107,7 @@ class Edit extends Component {
       return (<form onSubmit={this.handleSubmitEditor}>
         <label>
           Estado:
-          <input name="estado" type="text" value={this.state.estado} onChange={this.handleChangeEditor}/>
+          <input name="estado" type="number" value={this.state.estado} onChange={this.handleChangeEditor}/>
         </label>
         <input type="submit" value="Submit" />
       </form>);

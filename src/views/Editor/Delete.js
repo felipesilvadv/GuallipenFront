@@ -15,7 +15,7 @@ class Delete extends Component {
   }
 
   handleSubmit(event) {
-    const confirmo = confirm("id: " + this.state.value);
+    const confirmo = confirm('¿Estas seguro que quieres eliminar?\n'+this.mensaje());
     if (confirmo){
       const url = apiUri + this.props.ruta + '/' + this.state.value;
       fetch(url , {method: 'DELETE', mode: 'cors', headers: {'Content-Type': 'application/json'}})
@@ -27,6 +27,28 @@ class Delete extends Component {
       this.setState({value: ''});
     }
     event.preventDefault();
+  }
+  mensaje(){
+    if (this.props.nombre === "Vendedor"){
+      return '\n\tNombre: '+ this.state.name + '\n\tEmail: '+this.state.email;
+    }
+    else if (this.props.nombre === "Transportista"){
+      return '\n\tNombre: '+ this.state.name;
+    }
+    else if (this.props.nombre === "Pedido"){
+      let orden = '';
+      let estado = '';
+      for (var i = 0; i < this.props.datos.length; i++) {
+        if (this.props.datos[i]._id === this.state.value){
+          const dato = this.props.datos[i];
+          orden = dato.orden;
+          estado = dato.estado;
+          break;
+        }
+      }
+      return '\n\tOrden : ' + orden+ '\n\tEstado: ' + estado;
+    }
+    return '';
   }
 
   render() {
