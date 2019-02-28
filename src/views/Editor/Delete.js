@@ -30,10 +30,28 @@ class Delete extends Component {
   }
   mensaje(){
     if (this.props.nombre === "Vendedor"){
-      return '\n\tNombre: '+ this.state.name + '\n\tEmail: '+this.state.email;
+      let nombre = '';
+      let email = '';
+      for (var i = 0; i < this.props.datos.length; i++) {
+        if (this.props.datos[i]._id === this.state.value){
+          const dato = this.props.datos[i];
+          nombre = dato.nombre;
+          email = dato.email;
+          break;
+        }
+      }
+      return '\n\tNombre: '+ nombre + '\n\tEmail: '+email;
     }
     else if (this.props.nombre === "Transportista"){
-      return '\n\tNombre: '+ this.state.name;
+      let nombre = '';
+      for (var i = 0; i < this.props.datos.length; i++) {
+        if (this.props.datos[i]._id === this.state.value){
+          const dato = this.props.datos[i];
+          nombre = dato.nombre;
+          break;
+        }
+      }
+      return '\n\tNombre: '+ nombre;
     }
     else if (this.props.nombre === "Pedido"){
       let orden = '';

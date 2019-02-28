@@ -5,16 +5,15 @@ class Elemento extends Component {
 
   render() {
     return(
-    <div>
-      <ListGroupItem key={this.props.dato.id}>
+      <ListGroupItem key={this.props.dato.id} >
         <div className="row">
+          <div className="col-1">{this.props.dato.orden}</div>
           <div className="col">{this.props.dato.cliente}</div>
-          <div className="col-2">
+          <div className="col-3">
             {moment(this.props.dato.updatedAt).format("HH:mm")}
           </div>
         </div>
       </ListGroupItem>
-    </div>
   );
   }
 }

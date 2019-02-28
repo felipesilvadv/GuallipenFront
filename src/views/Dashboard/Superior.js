@@ -10,7 +10,7 @@ class Superior extends Component {
         <ListGroupItem active>
           <h2>{this.props.title}</h2>
         </ListGroupItem>
-        <div className="container" style={{ overflowY: "auto", height: window.innerHeight / 2.8 }}>
+        <div style={{ overflowY: "auto", height: window.innerHeight / 2.8 }}>
           {this.props.data.map((item, i) => {
             return (
               < Elemento dato={item} key={item._id} />

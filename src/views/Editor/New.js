@@ -4,7 +4,7 @@ import apiUri from "../../apiUri";
 class New extends Component {
   constructor(props) {
     super(props);
-    this.state = {name: '', email: '', orden: undefined, estado: undefined, cliente: ''};
+    this.state = {name: '', email: '', orden: '', estado: '', cliente: ''};
 
     this.handleChange = this.handleChange.bind(this);
     this.handleChangeSelect = this.handleChangeSelect.bind(this);
@@ -24,7 +24,7 @@ class New extends Component {
     alert('Creaste un '+this.props.nombre + this.mensaje());
     const url = apiUri + this.props.ruta;
     const datos = this.genData();
-    this.setState({name: '', email: '', orden: 0, estado: 0, cliente: ''});
+    this.setState({name: '', email: '', orden: '', estado: '', cliente: ''});
     fetch(url, {method: 'POST', headers: {'Content-Type': 'application/json'},
     body: JSON.stringify(datos)}).then(function(response) {
         return response.json()
@@ -49,7 +49,7 @@ class New extends Component {
           break;
         }
       }
-      return '\nCliente: '+ this.state.cliente + '\nOrden : ' + this.state.orden.toString()+ '\nEstado: ' + this.state.estado;
+      return '\nCliente: '+ cliente + '\nOrden : ' + this.state.orden.toString()+ '\nEstado: ' + this.state.estado;
     }
     return '';
   }
