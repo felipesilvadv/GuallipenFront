@@ -4,7 +4,7 @@ import apiUri from "../../apiUri";
 class Edit extends Component {
   constructor(props) {
     super(props);
-    this.state = {name: '', email: '', value: '', display: false, estado: 0};
+    this.state = {name: '', email: '', value: '', display: false, estado: 0, patente: ''};
 
     this.handleChangeEditor = this.handleChangeEditor.bind(this);
     this.handleSubmitEditor = this.handleSubmitEditor.bind(this);
@@ -41,7 +41,7 @@ class Edit extends Component {
             this.setState({name: this.props.datos[i].nombre, email: this.props.datos[i].email, display: true});
         }
         else if( this.props.nombre === "Transportista"){
-          this.setState({name: this.props.datos[i].nombre, display: true});
+          this.setState({name: this.props.datos[i].nombre, patente: this.props.datos[i].id, display: true});
         }
         else if (this.props.nombre === "Pedido"){
           this.setState({estado: this.props.datos[i].estado, display: true});
@@ -56,7 +56,7 @@ class Edit extends Component {
       return '\n\tNombre: '+ this.state.name + '\n\tEmail: '+this.state.email;
     }
     else if (this.props.nombre === "Transportista"){
-      return '\n\tNombre: '+ this.state.name;
+      return '\n\tNombre: '+ this.state.name + '\n\tPatente: '+this.state.patente;
     }
     else if (this.props.nombre === "Pedido"){
       let orden = '';
@@ -75,7 +75,7 @@ class Edit extends Component {
       return {nombre: this.state.name, email: this.state.email};
     }
     else if (this.props.nombre === "Transportista"){
-      return {nombre: this.state.name};
+      return {nombre: this.state.name, id: this.state.patente};
     }
     else if (this.props.nombre === "Pedido"){
       return {estado: this.state.estado};
@@ -83,8 +83,8 @@ class Edit extends Component {
     return {};
   }
 
-  genForm(name){
-    if (name === "Vendedor"){
+  genForm(){
+    if (this.props.nombre === "Vendedor"){
       return (<form onSubmit={this.handleSubmitEditor}>
         <label>
           Nombre:
@@ -95,15 +95,17 @@ class Edit extends Component {
         </label>
         <input type="submit" value="Submit" />
       </form>);
-    }else if( name === "Transportista"){
+    }else if( this.props.nombre === "Transportista"){
       return (<form onSubmit={this.handleSubmitEditor}>
         <label>
           Nombre:
           <input name="name" type="text" value={this.state.name} onChange={this.handleChangeEditor}/>
+          Patente:
+          <input name="name" type="text" value={this.state.patente} onChange={this.handleChangeEditor}/>
         </label>
         <input type="submit" value="Submit" />
       </form>);
-    }else if (name === "Pedido") {
+    }else if (this.props.nombre === "Pedido") {
       return (<form onSubmit={this.handleSubmitEditor}>
         <label>
           Estado:

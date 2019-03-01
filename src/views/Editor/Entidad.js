@@ -20,7 +20,7 @@ class Entidad extends Component {
     }).catch(r => {
       console.log(r);
     });
-    if (this.props.route === 'pedidos'){
+    if (this.props.route === 'pedidos' || this.props.route === 'vendedores'){
       fetch(apiUri + 'clientes/')
       .then(r => r.json())
       .then(r => {
