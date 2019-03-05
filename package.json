@@ -52,8 +52,7 @@
     "dev": "webpack -d --progress --watch --profile --json > compilation-stats.json --env.dev",
     "start": "webpack-dev-server --progress --color --inline --env.dev",
     "build": "webpack -p --progress --env.prod",
-    "clean": "rimraf ./build",
-    "heroku-postbuild": "webpack -p --config ./webpack.config.js --progress"
+    "clean": "rimraf ./build"
   },
   "engines": {
     "node": ">= 8.9.4",
