@@ -24,12 +24,14 @@ class New extends Component {
     alert('Creaste un '+this.props.nombre + this.mensaje());
     const url = apiUri + this.props.ruta;
     const datos = this.genData();
+    const funcion = this.props.func;
     this.setState({name: '', email: '', orden: '', estado: '', cliente: ''});
     fetch(url, {method: 'POST', headers: {'Content-Type': 'application/json'},
     body: JSON.stringify(datos)}).then(function(response) {
         return response.json()
       }).then(function(body) {
         console.log(body);
+        funcion();
       });
     event.preventDefault();
   }

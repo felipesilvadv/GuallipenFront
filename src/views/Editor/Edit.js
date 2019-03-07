@@ -25,11 +25,13 @@ class Edit extends Component {
     this.setState({name: '', email: '', display:false});
     const url = apiUri + this.props.ruta + '/' + this.state.value;
     const datos = this.genData();
+    const funcion = this.props.func;
     fetch(url , {method: 'PUT', mode: 'cors', headers: {'Content-Type': 'application/json'},
     body: JSON.stringify(datos)}).then(function(response) {
         return response;
       }).then(function(body) {
         console.log(body);
+        funcion();
       });
       this.setState({value: ''});
     event.preventDefault();

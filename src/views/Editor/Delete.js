@@ -18,11 +18,13 @@ class Delete extends Component {
     const confirmo = confirm('¿Estas seguro que quieres eliminar?\n'+this.mensaje());
     if (confirmo){
       const url = apiUri + this.props.ruta + '/' + this.state.value;
+      const funcion = this.props.func;
       fetch(url , {method: 'DELETE', mode: 'cors', headers: {'Content-Type': 'application/json'}})
       .then(function(response) {
           return response;
         }).then(function(body) {
           console.log(body);
+          funcion();
         });
       this.setState({value: ''});
     }

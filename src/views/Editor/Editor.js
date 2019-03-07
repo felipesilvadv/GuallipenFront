@@ -23,7 +23,7 @@ class Editor extends Component {
       <Entidad nombre={"Transportista"} route={"transportistas"} />
     </TabPanel>
     <TabPanel>
-      
+      <Entidad nombre={"Pedido"} route={"pedidos"} />
     </TabPanel>
 
   </Tabs>
