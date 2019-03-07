@@ -33,17 +33,20 @@ class Entidad extends Component {
       });
     }
   }
+  reload(){
+    window.location.reload();
+  }
   render() {
     return (
       <div className='row'>
       <div className='col'>
-      <New nombre={this.props.nombre} ruta={this.props.route} datos={this.state.clientes} />
+      <New nombre={this.props.nombre} ruta={this.props.route} datos={this.state.clientes} func={this.reload}/>
       </div>
       <div className='col'>
-      <Edit nombre={this.props.nombre} ruta={this.props.route} datos={this.state.coleccion} />
+      <Edit nombre={this.props.nombre} ruta={this.props.route} datos={this.state.coleccion} func={this.reload}/>
       </div>
       <div className='col'>
-      <Delete nombre={this.props.nombre} ruta={this.props.route} datos={this.state.coleccion}/>
+      <Delete nombre={this.props.nombre} ruta={this.props.route} datos={this.state.coleccion} func={this.reload}/>
       </div>
       </div>
     );
