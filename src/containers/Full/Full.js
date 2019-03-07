@@ -23,8 +23,8 @@ class Full extends Component {
                   name="Dashboard"
                   component={Dashboard}
                 />
-                <Route path="/dispatch" name="Despacho" component={Dispatch} />
                 
+
                 <Redirect from="/" to="/dashboard" />
               </Switch>
             </Container>
