@@ -9,7 +9,7 @@ const extractSCSS = new ExtractTextPlugin('[name].styles.css');
 
 const BUILD_DIR = path.resolve(__dirname, 'build');
 const SRC_DIR = path.resolve(__dirname, 'src');
-const port = (procces.env.PORT || 8080)
+const port = (process.env.PORT || 8080)
 console.log('BUILD_DIR', BUILD_DIR);
 console.log('SRC_DIR', SRC_DIR);
 
